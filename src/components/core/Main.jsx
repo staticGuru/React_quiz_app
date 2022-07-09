@@ -96,7 +96,7 @@ class Main extends Component {
           total={total}
           startQuiz={this.handleStartQuiz}
         />
-
+        <div className="column">
         <div className="row">
           <div className="d-flex col-lg-12 col-md-10">
             <div className="col-lg-6 col-md-5" id="question">
@@ -114,7 +114,7 @@ class Main extends Component {
                 increaseScore={this.handleIncreaseScore}
               />
             </div>
-
+            </div>
             <div id="submit">
               {showButton ? (
                 <button className="fancy-btn" onClick={this.nextQuestion}>

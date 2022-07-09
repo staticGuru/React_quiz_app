@@ -7,7 +7,10 @@ export default [
             'Both',
             'None of above'
         ],
-        correct: 1
+        correct: 1,
+        optionType:'word',
+        answerType:'single',
+        selectedAnswer:''
     },
 
     {
