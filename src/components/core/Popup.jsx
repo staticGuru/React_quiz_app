@@ -41,7 +41,7 @@ class Popup extends Component {
     
     componentWillReceiveProps(nextProps) {
         this.setState({
-            text: 'You have completed the quiz. <br /> You got: <strong>' + this.props.score + 
+            text: 'You have completed the quiz. <br /> You got: <strong>' + nextProps.score + 
             '</strong> out of <strong>' + 
             this.props.total +
             '</strong> questions right.'

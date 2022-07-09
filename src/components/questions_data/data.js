@@ -10,18 +10,23 @@ export default [
         correct: 1,
         optionType:'word',
         answerType:'single',
-        selectedAnswer:''
+        selectedAnswer:'',
+        id:1
     },
 
     {
         question: 'JSX is typesafe?',
         answers: [
-            'True',
+            'lightbulb',
             'False',
             'None of the Above',
             'Cannot Be Determined'
         ],
-        correct: 1
+        correct: 1,
+        optionType:'image',
+        answerType:'single',
+        selectedAnswer:'',
+        id:2
     },    
     {
         question: 'React merges the object you provide into the current state using which of the following',
@@ -31,7 +36,11 @@ export default [
             'getState()', 
             'None of the Above'
         ],    
-        correct: 1
+        correct: 1,
+        optionType:'word',
+        answerType:'single',
+        selectedAnswer:'',
+        id:3
     },    
     {
         question: 'Arbitrary inputs of components are called?',
@@ -41,7 +50,11 @@ export default [
             'Elements', 
             'Ref'
         ],    
-        correct: 2
+        correct: 2,
+        optionType:'word',
+        answerType:'single',
+        selectedAnswer:'',
+        id:4
     },
     {
         question: '_____ can be done while more than one element needs to be returned from a component?',
@@ -51,7 +64,11 @@ export default [
             'Insulation', 
             'Wrapping'
         ],    
-        correct: 4
+        correct: 4,
+        optionType:'word',
+        answerType:'single',
+        selectedAnswer:'',
+        id:5
     },
     {
         question: 'Which of the following needs to be updated to achieve dynamic UI updates?',
@@ -61,7 +78,11 @@ export default [
             'Components', 
             'None of the Above'
         ],    
-        correct: 1
+        correct: 1,
+        optionType:'word',
+        answerType:'single',
+        selectedAnswer:'',
+        id:6
     },
     {
         question: 'Lifecycle methods are mainly used _____',
@@ -71,6 +92,10 @@ export default [
             'Free up resources', 
             'None of the Above'
         ],    
-        correct: 3
+        correct: 3,
+        optionType:'word',
+        answerType:'single',
+        selectedAnswer:'',
+        id:7
     }
 ]

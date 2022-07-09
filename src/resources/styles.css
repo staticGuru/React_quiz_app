@@ -118,6 +118,14 @@ header .header_logo_title {
     margin: auto 20px;
     transition: color .3s ease;
 }
+#answers li img {
+    color: #0094da;
+    /* font-size: 16px;
+    font-weight: 600; */
+    flex: calc(100% - 75px);
+    margin: auto 20px;
+    transition: color .3s ease;
+}
 
 #answers li:after{
     display: block;
@@ -139,6 +147,22 @@ header .header_logo_title {
 
 #answers li.right p {
     color: #fff;   
+}
+#answers li.selectedOptions {
+    border-color: #00ff26;
+    color: transparent;
+    /* background-color: ; */
+    animation: shake 1.0s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+#answers li.selectedOptions span {
+    background-color: #00ff26;
+}
+#answers li.selectedOptions p {
+    /* color: #fff;
+    background-color: #dc0a0a; */
 }
 
 #answers li.wrong {
