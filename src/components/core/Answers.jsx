@@ -87,7 +87,13 @@ class Answers extends Component {
       transitionLeaveTimeout: 300,
     };
     console.log("classNames", classNames);
-
+ //     <input type="textarea" 
+    //     name="textValue"
+    //     multiple="true"
+    //     style={{width: '100%', height: '100%'}} 
+    //     rows="50"  
+      
+    //   />
     return (
       <div id="answers">
         {optionType == "word" ? (
@@ -138,7 +144,7 @@ class Answers extends Component {
             >
               <span>A</span>
 
-              <p>Image content</p>
+              <img width="50" height="50" src={answers[0]} alt="image"/>
             </li>
 
             <li
@@ -147,7 +153,7 @@ class Answers extends Component {
               data-id="2"
             >
               <span>B</span>
-              <p>Image content</p>
+              <img width="50" height="50" src={answers[1]} alt="image"/>
             </li>
 
             <li
@@ -156,7 +162,7 @@ class Answers extends Component {
               data-id="3"
             >
               <span>C</span>
-              <p>Image content</p>
+              <img width="50" height="50" src={answers[2]} alt="image"/>
             </li>
 
             <li
@@ -165,10 +171,21 @@ class Answers extends Component {
               data-id="4"
             >
               <span>D</span>
-              <p>Image content</p>
+              <img width="50" height="50" src={answers[3]} alt="image"/>
             </li>
           </ul>
         ) : null}
+        {optionType == "textArea"?<ul>
+       
+   
+    <textarea
+
+    rows={5}
+    style={{width: '100%'}}
+
+  ></textarea>
+       
+        </ul>:null}
       </div>
     );
   }

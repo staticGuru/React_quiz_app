@@ -15,14 +15,14 @@ export default [
     },
 
     {
-        question: 'JSX is typesafe?',
+        question: 'Which is heavy?',
         answers: [
-            'lightbulb',
-            'False',
-            'None of the Above',
-            'Cannot Be Determined'
+            'https://images.unsplash.com/photo-1507668077129-56e32842fceb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80',
+            'https://images.unsplash.com/photo-1624719507903-7d8b41c7c9cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+            'https://images.unsplash.com/photo-1561130294-5b4154683c41?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+            'https://images.unsplash.com/photo-1543285198-3af15c4592ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
         ],
-        correct: 1,
+        correct: 3,
         optionType:'image',
         answerType:'single',
         selectedAnswer:'',
@@ -37,7 +37,7 @@ export default [
             'None of the Above'
         ],    
         correct: 1,
-        optionType:'word',
+        optionType:'textArea',
         answerType:'single',
         selectedAnswer:'',
         id:3
