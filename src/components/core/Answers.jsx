@@ -4,7 +4,7 @@ class Answers extends Component {
     super(props);
     this.state = {
       isAnswered: false,
-      classNames:['','','',''],
+      classNames: ["", "", "", ""],
     };
     console.log("optionsss", props.optionState);
     this.checkAnswer = this.checkAnswer.bind(this);
@@ -12,30 +12,30 @@ class Answers extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("cahngesss",prevProps.count,this.props.count)
+    console.log("cahngesss", prevProps.count, this.props.count);
     if (prevProps.count !== this.props.count) {
-           console.log('something prop has changed.')
-           let stateUpdate = JSON.parse(localStorage.getItem("Quiz"));
-        if(stateUpdate[this.props.count].answer ==""){
-            this.setState({
-                classNames: ['','','','']
-              });
-        }else{
-            console.log("valueoftheanswer",stateUpdate[this.props.count].answer);
-            this.state.classNames[0] ='';
-            this.state.classNames[1] ='';
-            this.state.classNames[2] ='';
-            this.state.classNames[3] ='';
-    
-            this.state.classNames[stateUpdate[this.props.count].answer-1] ='selectedOptions';
-            console.log("callllssname",this.state.classNames);
-            this.setState({
-                classNames: this.state.classNames
-              });
-        }
-    }
-}
+      console.log("something prop has changed.");
+      let stateUpdate = JSON.parse(localStorage.getItem("Quiz"));
+      if (stateUpdate[this.props.count].answer == "") {
+        this.setState({
+          classNames: ["", "", "", ""],
+        });
+      } else {
+        console.log("valueoftheanswer", stateUpdate[this.props.count].answer);
+        this.state.classNames[0] = "";
+        this.state.classNames[1] = "";
+        this.state.classNames[2] = "";
+        this.state.classNames[3] = "";
 
+        this.state.classNames[stateUpdate[this.props.count].answer - 1] =
+          "selectedOptions";
+        console.log("callllssname", this.state.classNames);
+        this.setState({
+          classNames: this.state.classNames,
+        });
+      }
+    }
+  }
 
   checkAnswer(e) {
     let { isAnswered, answerType, id } = this.props;
@@ -78,7 +78,7 @@ class Answers extends Component {
     });
   }
   render() {
-    let { answers, optionType, id,optionState } = this.props;
+    let { answers, optionType, id, optionState } = this.props;
     let { classNames } = this.state;
 
     let transition = {
@@ -87,12 +87,12 @@ class Answers extends Component {
       transitionLeaveTimeout: 300,
     };
     console.log("classNames", classNames);
- //     <input type="textarea" 
+    //     <input type="textarea"
     //     name="textValue"
     //     multiple="true"
-    //     style={{width: '100%', height: '100%'}} 
-    //     rows="50"  
-      
+    //     style={{width: '100%', height: '100%'}}
+    //     rows="50"
+
     //   />
     return (
       <div id="answers">
@@ -144,7 +144,7 @@ class Answers extends Component {
             >
               <span>A</span>
 
-              <img width="50" height="50" src={answers[0]} alt="image"/>
+              <img width="50" height="50" src={answers[0]} alt="image" />
             </li>
 
             <li
@@ -153,7 +153,7 @@ class Answers extends Component {
               data-id="2"
             >
               <span>B</span>
-              <img width="50" height="50" src={answers[1]} alt="image"/>
+              <img width="50" height="50" src={answers[1]} alt="image" />
             </li>
 
             <li
@@ -162,7 +162,7 @@ class Answers extends Component {
               data-id="3"
             >
               <span>C</span>
-              <img width="50" height="50" src={answers[2]} alt="image"/>
+              <img width="50" height="50" src={answers[2]} alt="image" />
             </li>
 
             <li
@@ -171,21 +171,15 @@ class Answers extends Component {
               data-id="4"
             >
               <span>D</span>
-              <img width="50" height="50" src={answers[3]} alt="image"/>
+              <img width="50" height="50" src={answers[3]} alt="image" />
             </li>
           </ul>
         ) : null}
-        {optionType == "textArea"?<ul>
-       
-   
-    <textarea
-
-    rows={5}
-    style={{width: '100%'}}
-
-  ></textarea>
-       
-        </ul>:null}
+        {optionType == "textArea" ? (
+          <ul>
+            <textarea rows={5} style={{ width: "100%" }}></textarea>
+          </ul>
+        ) : null}
       </div>
     );
   }
