@@ -37,7 +37,9 @@ export default [
             'None of the Above'
         ],    
         correct: 1,
-        optionType:'textArea',
+        // optionType:'Multiple Choice Questionnaires',
+        // answerType:'multiple',
+        optionType:'word',
         answerType:'single',
         selectedAnswer:'',
         id:3
@@ -85,7 +87,7 @@ export default [
         id:6
     },
     {
-        question: 'Lifecycle methods are mainly used _____',
+        question: 'What\'s your main reason for your score? Please be 100% honest: we need your feedback really to improve Hotjar.',
         answers: [
             'To keep track of event history',
             'To enhance components', 
@@ -93,7 +95,7 @@ export default [
             'None of the Above'
         ],    
         correct: 3,
-        optionType:'word',
+        optionType:'Open Ended Questionnaires',
         answerType:'single',
         selectedAnswer:'',
         id:7

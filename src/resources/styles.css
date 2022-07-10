@@ -183,7 +183,9 @@ header .header_logo_title {
     color: #fff;
     background-color: #dc0a0a;
 }
-
+#imageContainer{
+    columns: 2;
+}
 #submit {
     text-align: center;
     margin: 20px 0;

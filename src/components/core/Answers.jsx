@@ -38,29 +38,43 @@ class Answers extends Component {
   }
 
   checkAnswer(e) {
-    let { isAnswered, answerType, id } = this.props;
+    let { isAnswered, answerType, id, optionType } = this.props;
 
     // if(!isAnswered) {
     var storage = JSON.parse(localStorage.getItem("Quiz"));
 
     let elem = e.currentTarget;
     let { correct, increaseScore } = this.props;
+    var storeArr=this.state.classNames;
+    var storearr1=[];
     let answer = Number(elem.dataset.id);
+    console.log("answer",answer);
     let updatedClassNames =
       answerType == "single" ? ["", "", "", ""] : this.state.classNames;
-    storage[id].answer = answer;
+    if (optionType == "Multiple Choice Questionnaires") {
 
+      // var storedArray = Array.isArray(storage[id].answer)
+      //   ? storage[id].answer
+      //   : [];
+      console.log("classNamesasdas",this.state.classNames);
+      for(var i=0;i<storeArr.length;i++){
+        if(storeArr[i] != ''){
+          storearr1[i]=1;
+        }else{
+          storearr1[i]='';
+        }
+       
+      }
+      console.log("dfsdf",storearr1)
+      storage[id].answer = storearr1;
+    } else {
+      storage[id].answer = answer;
+    }
+   
+    // console.log("sottttttt",storage,(storedArray.push(storage[id].answer)).map(e=>e));
     localStorage.setItem("Quiz", JSON.stringify(storage));
-    // if(answer === correct){
-    //     updatedClassNames[answer-1] = 'right';
-    //     increaseScore();
-    // }
-    // else {
-    // updatedClassNames[answer-1] = 'wrong';
-
     updatedClassNames[answer - 1] = "selectedOptions";
-    // }
-
+   
     this.setState({
       classNames: updatedClassNames,
     });
@@ -135,8 +149,9 @@ class Answers extends Component {
             </li>
           </ul>
         ) : null}
+
         {optionType == "image" ? (
-          <ul>
+          <ul id="imageContainer">
             <li
               onClick={this.checkAnswer}
               className={classNames[0]}
@@ -175,9 +190,56 @@ class Answers extends Component {
             </li>
           </ul>
         ) : null}
-        {optionType == "textArea" ? (
+        {optionType == "Open Ended Questionnaires" ? (
+          <div style={{ marginTop: 60 }}>
+            <textarea
+              rows={15}
+              style={{
+                width: "80%",
+                marginLeft: 60,
+                border: "1px solid black",
+              }}
+              placeholder="Please type here..."
+            ></textarea>
+          </div>
+        ) : null}
+        {optionType == "Multiple Choice Questionnaires" ? (
           <ul>
-            <textarea rows={5} style={{ width: "100%" }}></textarea>
+            <li
+              onClick={this.checkAnswer}
+              className={classNames[0]}
+              data-id="1"
+            >
+              <span>A</span>
+              <p>{answers[0]}</p>
+            </li>
+
+            <li
+              onClick={this.checkAnswer}
+              className={classNames[1]}
+              data-id="2"
+            >
+              <span>B</span>
+              <p>{answers[1]}</p>
+            </li>
+
+            <li
+              onClick={this.checkAnswer}
+              className={classNames[2]}
+              data-id="3"
+            >
+              <span>C</span>
+              <p>{answers[2]}</p>
+            </li>
+
+            <li
+              onClick={this.checkAnswer}
+              className={classNames[3]}
+              data-id="4"
+            >
+              <span>D</span>
+              <p>{answers[3]}</p>
+            </li>
           </ul>
         ) : null}
       </div>
