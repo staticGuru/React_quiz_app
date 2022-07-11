@@ -29,10 +29,10 @@ export default [
         id:2
     },    
     {
-        question: 'React merges the object you provide into the current state using which of the following',
+        question: 'which is the useState array destructuring?',
         answers: [
             'setState()',
-            'State()', 
+            'state()', 
             'getState()', 
             'None of the Above'
         ],    

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 let storearr1=[];
-
+let classArr=["", "", "", ""];
 class Answers extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,6 @@ class Answers extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("cahngesss", prevProps, this.props);
     if (prevProps.count !== this.props.count) {
       console.log("something prop has changed.");
       let stateUpdate = JSON.parse(localStorage.getItem("Quiz"));
@@ -31,9 +30,21 @@ class Answers extends Component {
         this.state.classNames[1] = "";
         this.state.classNames[2] = "";
         this.state.classNames[3] = "";
-
-        this.state.classNames[stateUpdate[this.props.count].answer - 1] =
+      
+        if(stateUpdate[this.props.count].optionType =='word' || stateUpdate[this.props.count].optionType =='image'){
+          this.state.classNames[stateUpdate[this.props.count].answer - 1] =
           "selectedOptions";
+        }else if(stateUpdate[this.props.count].optionType =='Open Ended Questionnaires'){
+
+        }else{
+          for(let x of stateUpdate[this.props.count].answer){
+            console.log("answer",x,this.props.count);
+            this.state.classNames[x - 1] =
+          "selectedOptions";
+          }
+        }
+
+        
         this.setState({
           classNames: this.state.classNames,
         });
@@ -50,13 +61,15 @@ class Answers extends Component {
     let elem = e.currentTarget;
     let { correct, increaseScore } = this.props;
     var storeArr=this.state.classNames;
-    // var storearr1=[];
+    var storearr1=storage[id].answer.length!=0?storage[id].answer:[];
     // var count = 0;
     let answer = Number(elem.dataset.id);
-    // console.log("answer",answer);
     let updatedClassNames =
       answerType == "single" ? ["", "", "", ""] : this.state.classNames;
     if (optionType == "Multiple Choice Questionnaires") {
+      storearr1.push(answer);
+         storage[id].answer=storearr1;
+         localStorage.setItem("Quiz", JSON.stringify(storage));
       
     } else {
       storage[id].answer = answer;
@@ -71,11 +84,7 @@ class Answers extends Component {
     });
 
     this.props.showButton();
-    // var myTime = setTimeout(() => {
-    //     this.clearClasses();
-    //     //console.log("IN SET Timeout")
-    // }, 5000);
-    // }
+   
   }
   clearClasses() {
     this.setState({
@@ -100,31 +109,24 @@ class Answers extends Component {
       transitionEnterTimeout: 500,
       transitionLeaveTimeout: 300,
     };
-    // console.log("classNames", classNames);
-    if(optionType =="Multiple Choice Questionnaires"){
-      let renderStorage=JSON.parse(localStorage.getItem("Quiz"));
-      storearr1=[];
-      for(var i=0;i<classNames.length;i++){
-        if(classNames[i] != ''){
-          storearr1[count]=i+1;
-           count++;
-        }else{
-          // storearr1[i]='';
-        }
+    // if(optionType =="Multiple Choice Questionnaires"){
+    //   let renderStorage=JSON.parse(localStorage.getItem("Quiz"));
+    //   storearr1=[];
+    //   for(var i=0;i<classNames.length;i++){
+    //     if(classNames[i] != ''){
+    //       storearr1[count]=i+1;
+    //        count++;
+    //     }else{
+    //       // storearr1[i]='';
+    //     }
        
-      }
-      // console.log("storearr1", storearr1);
-      renderStorage[id].answer=storearr1;
-      localStorage.setItem("Quiz", JSON.stringify(renderStorage));
+    //   }
+    //   console.log("storearr1", renderStorage[id]);
+    //   renderStorage[id].answer=storearr1;
+    //   localStorage.setItem("Quiz", JSON.stringify(renderStorage));
 
-    }
-    //     <input type="textarea"
-    //     name="textValue"
-    //     multiple="true"
-    //     style={{width: '100%', height: '100%'}}
-    //     rows="50"
-
-    //   />
+    // }
+  
     return (
       <div id="answers">
         {optionType == "word" ? (
