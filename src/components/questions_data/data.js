@@ -36,7 +36,7 @@ export default [
             'getState()', 
             'None of the Above'
         ],    
-        correct: 1,
+        correct: [1,2],
         optionType:'Multiple Choice Questionnaires',
         answerType:'multiple',
         // optionType:'word',
@@ -94,7 +94,7 @@ export default [
             'Free up resources', 
             'None of the Above'
         ],    
-        correct: 3,
+        correct: 'I love react',
         optionType:'Open Ended Questionnaires',
         answerType:'single',
         selectedAnswer:'',

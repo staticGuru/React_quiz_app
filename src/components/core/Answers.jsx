@@ -8,10 +8,12 @@ class Answers extends Component {
     this.state = {
       isAnswered: false,
       classNames: ["", "", "", ""],
+      textArea:'',
     };
     // console.log("optionsss", props.optionState);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.clearClasses = this.clearClasses.bind(this);
+    this.onChangeTextArea=this.onChangeTextArea.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -80,9 +82,18 @@ class Answers extends Component {
       classNames: ["", "", "", ""],
     });
   }
+  onChangeTextArea(e){
+
+    this.setState({
+      textArea:e.target.value
+    });
+    var Storage= JSON.parse(localStorage.getItem('Quiz'));
+    Storage[this.props.id].answer=e.target.value;
+    localStorage.setItem('Quiz',JSON.stringify(Storage));
+  }
   render() {
     let { answers, optionType, id, optionState } = this.props;
-    let { classNames } = this.state;
+    let { classNames,textArea } = this.state;
     var count=0;
     let transition = {
       transitionName: "example",
@@ -205,6 +216,8 @@ class Answers extends Component {
                 marginLeft: 60,
                 border: "1px solid black",
               }}
+              value={textArea}
+              onChange={this.onChangeTextArea}
               placeholder="Please type here..."
             ></textarea>
           </div>

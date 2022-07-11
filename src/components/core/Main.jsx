@@ -21,13 +21,26 @@ class Main extends Component {
     this.handleShowButton = this.handleShowButton.bind(this);
     this.handleStartQuiz = this.handleStartQuiz.bind(this);
     this.handleIncreaseScore = this.handleIncreaseScore.bind(this);
+    this.isEqual=this.isEqual.bind(this);
   }
 
   componentWillMount() {
     let { count } = this.state;
     let QuizData = {};
     for (let i = 0; i < data.length; i++) {
-      QuizData[data[i].id] = { correct: data[i].correct, answer: "" };
+      if (data[i].optionType == "Multiple Choice Questionnaires") {
+        QuizData[data[i].id] = {
+          correct: data[i].correct,
+          answer: [],
+          optionType: data[i].optionType,
+        };
+      } else {
+        QuizData[data[i].id] = {
+          correct: data[i].correct,
+          answer: "",
+          optionType: data[i].optionType,
+        };
+      }
     }
 
     localStorage.setItem("Quiz", JSON.stringify(QuizData));
@@ -59,8 +72,8 @@ class Main extends Component {
     } else {
       optionStateArr = ["", "", "", ""];
     }
-    console.log("couuuuntinmain",count);
-    var countPre=type == "previous" ? count - 1 : count;
+    console.log("couuuuntinmain", count);
+    var countPre = type == "previous" ? count - 1 : count;
     this.setState({
       id: data[countPre].id,
       question: data[countPre].question,
@@ -96,7 +109,7 @@ class Main extends Component {
     // console.log("countp", count);
 
     // this.setState({count:count-2},()=>{console.log("count",this.state.count);});
-     console.log("previouscount",count)
+    console.log("previouscount", count);
     this.insertData(count - 1, "previous");
     //   this.setState({
     //     showButton: false,
@@ -104,32 +117,49 @@ class Main extends Component {
     //   });
     // }
   }
-
+   isEqual = (first, second) => {
+    const sumFirst = first.reduce((acc, val) => acc+val);
+    const sumSecond = second.reduce((acc, val) => acc+val);
+    if(sumFirst === sumSecond){
+       return true;
+    }else{
+      return false;
+    }
+  }
   nextQuestion() {
     let { count, total } = this.state;
 
     if (count === total) {
       let scoreData = JSON.parse(localStorage.getItem("Quiz"));
-   
+
       // console.log("sdf", scoreData);
       for (let i = 0; i < data.length; i++) {
-        // console.log(
-        //   scoreData[data[i].id].correct == scoreData[data[i].id].answer
-        // );
-        if (scoreData[data[i].id].correct == scoreData[data[i].id].answer) {
-          scoreValue++;
-          this.setState({
-            score: this.state.score + 1,
-          });
+       
+        if (
+          scoreData[data[i].id].optionType == "Multiple Choice Questionnaire"
+        ) {
+          if(this.isEqual(scoreData[data[i].id].answer, scoreData[data[i].id].correct)){
+            scoreValue++;
+            this.setState({
+              score: this.state.score + 1,
+            });
+          }
+        } else {
+          if (scoreData[data[i].id].correct == scoreData[data[i].id].answer) {
+            scoreValue++;
+            this.setState({
+              score: this.state.score + 1,
+            });
+          }
         }
       }
       //   this.setState({ score: scoreValue });
       // console.log("scsfsd", scoreValue);
-    //   setTimeout(() => {
-        this.setState({
-            displayPopup: "flex",
-          });
-    //   }, 1000);
+      //   setTimeout(() => {
+      this.setState({
+        displayPopup: "flex",
+      });
+      //   }, 1000);
     } else {
       this.insertData(count);
       this.setState({
@@ -169,7 +199,7 @@ class Main extends Component {
       score,
       optionState,
     } = this.state;
-console.log("================================",id,count)
+    console.log("================================", id, count);
     return (
       <div className="container">
         <Popup
