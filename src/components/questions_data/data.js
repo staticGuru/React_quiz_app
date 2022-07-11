@@ -37,10 +37,10 @@ export default [
             'None of the Above'
         ],    
         correct: 1,
-        // optionType:'Multiple Choice Questionnaires',
-        // answerType:'multiple',
-        optionType:'word',
-        answerType:'single',
+        optionType:'Multiple Choice Questionnaires',
+        answerType:'multiple',
+        // optionType:'word',
+        // answerType:'single',
         selectedAnswer:'',
         id:3
     },    

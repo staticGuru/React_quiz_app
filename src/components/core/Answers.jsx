@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+
+let storearr1=[];
+
 class Answers extends Component {
   constructor(props) {
     super(props);
@@ -6,13 +9,13 @@ class Answers extends Component {
       isAnswered: false,
       classNames: ["", "", "", ""],
     };
-    console.log("optionsss", props.optionState);
+    // console.log("optionsss", props.optionState);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.clearClasses = this.clearClasses.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("cahngesss", prevProps.count, this.props.count);
+    console.log("cahngesss", prevProps, this.props);
     if (prevProps.count !== this.props.count) {
       console.log("something prop has changed.");
       let stateUpdate = JSON.parse(localStorage.getItem("Quiz"));
@@ -21,7 +24,7 @@ class Answers extends Component {
           classNames: ["", "", "", ""],
         });
       } else {
-        console.log("valueoftheanswer", stateUpdate[this.props.count].answer);
+        // console.log("valueoftheanswer", stateUpdate[this.props.count].answer);
         this.state.classNames[0] = "";
         this.state.classNames[1] = "";
         this.state.classNames[2] = "";
@@ -29,7 +32,6 @@ class Answers extends Component {
 
         this.state.classNames[stateUpdate[this.props.count].answer - 1] =
           "selectedOptions";
-        console.log("callllssname", this.state.classNames);
         this.setState({
           classNames: this.state.classNames,
         });
@@ -46,33 +48,20 @@ class Answers extends Component {
     let elem = e.currentTarget;
     let { correct, increaseScore } = this.props;
     var storeArr=this.state.classNames;
-    var storearr1=[];
+    // var storearr1=[];
+    // var count = 0;
     let answer = Number(elem.dataset.id);
-    console.log("answer",answer);
+    // console.log("answer",answer);
     let updatedClassNames =
       answerType == "single" ? ["", "", "", ""] : this.state.classNames;
     if (optionType == "Multiple Choice Questionnaires") {
-
-      // var storedArray = Array.isArray(storage[id].answer)
-      //   ? storage[id].answer
-      //   : [];
-      console.log("classNamesasdas",this.state.classNames);
-      for(var i=0;i<storeArr.length;i++){
-        if(storeArr[i] != ''){
-          storearr1[i]=1;
-        }else{
-          storearr1[i]='';
-        }
-       
-      }
-      console.log("dfsdf",storearr1)
-      storage[id].answer = storearr1;
+      
     } else {
       storage[id].answer = answer;
+      localStorage.setItem("Quiz", JSON.stringify(storage));
     }
    
-    // console.log("sottttttt",storage,(storedArray.push(storage[id].answer)).map(e=>e));
-    localStorage.setItem("Quiz", JSON.stringify(storage));
+  
     updatedClassNames[answer - 1] = "selectedOptions";
    
     this.setState({
@@ -94,13 +83,30 @@ class Answers extends Component {
   render() {
     let { answers, optionType, id, optionState } = this.props;
     let { classNames } = this.state;
-
+    var count=0;
     let transition = {
       transitionName: "example",
       transitionEnterTimeout: 500,
       transitionLeaveTimeout: 300,
     };
-    console.log("classNames", classNames);
+    // console.log("classNames", classNames);
+    if(optionType =="Multiple Choice Questionnaires"){
+      let renderStorage=JSON.parse(localStorage.getItem("Quiz"));
+      storearr1=[];
+      for(var i=0;i<classNames.length;i++){
+        if(classNames[i] != ''){
+          storearr1[count]=i+1;
+           count++;
+        }else{
+          // storearr1[i]='';
+        }
+       
+      }
+      // console.log("storearr1", storearr1);
+      renderStorage[id].answer=storearr1;
+      localStorage.setItem("Quiz", JSON.stringify(renderStorage));
+
+    }
     //     <input type="textarea"
     //     name="textValue"
     //     multiple="true"

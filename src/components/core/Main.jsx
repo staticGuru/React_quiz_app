@@ -41,38 +41,40 @@ class Main extends Component {
       localStore[
         type === "previous" ? this.state.count - 1 : this.state.count + 1
       ];
-    console.log(
-      "callledddbeeefore",
-      selectedLocalStore,
-      selectedLocalStore.answer,
-      type
-    );
+    // console.log(
+    //   "callledddbeeefore",
+    //   selectedLocalStore,
+    //   selectedLocalStore.answer,
+    //   type
+    // );
 
     if (selectedLocalStore.answer != "") {
-      console.log(
-        "callleddd",
-        selectedLocalStore,
-        selectedLocalStore.answer,
-        type
-      );
+      // console.log(
+      //   "callleddd",
+      //   selectedLocalStore,
+      //   selectedLocalStore.answer,
+      //   type
+      // );
       optionStateArr[selectedLocalStore.answer - 1] = "selectedOptions";
     } else {
       optionStateArr = ["", "", "", ""];
     }
+    console.log("couuuuntinmain",count);
+    var countPre=type == "previous" ? count - 1 : count;
     this.setState({
-      id: data[count].id,
-      question: data[count].question,
+      id: data[countPre].id,
+      question: data[countPre].question,
       answers: [
-        data[count].answers[0],
-        data[count].answers[1],
-        data[count].answers[2],
-        data[count].answers[3],
+        data[countPre].answers[0],
+        data[countPre].answers[1],
+        data[countPre].answers[2],
+        data[countPre].answers[3],
       ],
-      correct: data[count].correct,
+      correct: data[countPre].correct,
       count: type == "previous" ? this.state.count - 1 : this.state.count + 1,
-      optionType: data[count].optionType,
-      answerType: data[count].answerType,
-      selected: data[count].selectedAnswer,
+      optionType: data[countPre].optionType,
+      answerType: data[countPre].answerType,
+      selected: data[countPre].selectedAnswer,
       optionState: optionStateArr,
     });
   }
@@ -91,10 +93,10 @@ class Main extends Component {
     //     displayPopup: "flex",
     //   });
     // } else {
-    console.log("countp", count);
+    // console.log("countp", count);
 
     // this.setState({count:count-2},()=>{console.log("count",this.state.count);});
-
+     console.log("previouscount",count)
     this.insertData(count - 1, "previous");
     //   this.setState({
     //     showButton: false,
@@ -109,11 +111,11 @@ class Main extends Component {
     if (count === total) {
       let scoreData = JSON.parse(localStorage.getItem("Quiz"));
    
-      console.log("sdf", scoreData);
+      // console.log("sdf", scoreData);
       for (let i = 0; i < data.length; i++) {
-        console.log(
-          scoreData[data[i].id].correct == scoreData[data[i].id].answer
-        );
+        // console.log(
+        //   scoreData[data[i].id].correct == scoreData[data[i].id].answer
+        // );
         if (scoreData[data[i].id].correct == scoreData[data[i].id].answer) {
           scoreValue++;
           this.setState({
@@ -122,7 +124,7 @@ class Main extends Component {
         }
       }
       //   this.setState({ score: scoreValue });
-      console.log("scsfsd", scoreValue);
+      // console.log("scsfsd", scoreValue);
     //   setTimeout(() => {
         this.setState({
             displayPopup: "flex",
@@ -167,7 +169,7 @@ class Main extends Component {
       score,
       optionState,
     } = this.state;
-
+console.log("================================",id,count)
     return (
       <div className="container">
         <Popup
