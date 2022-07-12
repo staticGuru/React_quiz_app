@@ -21,7 +21,7 @@ class Main extends Component {
     this.handleShowButton = this.handleShowButton.bind(this);
     this.handleStartQuiz = this.handleStartQuiz.bind(this);
     this.handleIncreaseScore = this.handleIncreaseScore.bind(this);
-    this.isEqual=this.isEqual.bind(this);
+    this.isEqual = this.isEqual.bind(this);
   }
 
   componentWillMount() {
@@ -54,10 +54,8 @@ class Main extends Component {
       localStore[
         type === "previous" ? this.state.count - 1 : this.state.count + 1
       ];
- 
 
     if (selectedLocalStore.answer != "") {
-   
       optionStateArr[selectedLocalStore.answer - 1] = "selectedOptions";
     } else {
       optionStateArr = ["", "", "", ""];
@@ -91,17 +89,16 @@ class Main extends Component {
     let { count, total } = this.state;
 
     this.insertData(count - 1, "previous");
- 
   }
-   isEqual = (first, second) => {
-    const sumFirst = first.reduce((acc, val) => acc+val);
-    const sumSecond = second.reduce((acc, val) => acc+val);
-    if(sumFirst === sumSecond){
-       return true;
-    }else{
+  isEqual = (first, second) => {
+    const sumFirst = first.reduce((acc, val) => acc + val);
+    const sumSecond = second.reduce((acc, val) => acc + val);
+    if (sumFirst === sumSecond) {
+      return true;
+    } else {
       return false;
     }
-  }
+  };
   nextQuestion() {
     let { count, total } = this.state;
 
@@ -110,11 +107,15 @@ class Main extends Component {
 
       // console.log("sdf", scoreData);
       for (let i = 0; i < data.length; i++) {
-       
         if (
           scoreData[data[i].id].optionType == "Multiple Choice Questionnaire"
         ) {
-          if(this.isEqual(scoreData[data[i].id].answer, scoreData[data[i].id].correct)){
+          if (
+            this.isEqual(
+              scoreData[data[i].id].answer,
+              scoreData[data[i].id].correct
+            )
+          ) {
             scoreValue++;
             this.setState({
               score: this.state.score + 1,
@@ -129,7 +130,7 @@ class Main extends Component {
           }
         }
       }
-    
+
       //   setTimeout(() => {
       this.setState({
         displayPopup: "flex",
@@ -182,6 +183,14 @@ class Main extends Component {
           total={total}
           startQuiz={this.handleStartQuiz}
         />
+        <select
+          value={this.state.value}
+          onChange={(e) => console.log(e.target.value)}
+        >
+          {Array.from({ length: 17 }, (_, i) => i + 1).map((e, key) => {
+            return <option key={key} value={`useCase_${e}`}>{`useCase_${e}`}</option>;
+          })}
+        </select>
         <div className="column">
           <div className="row">
             <div className="d-flex col-lg-12 col-md-10">
@@ -191,7 +200,7 @@ class Main extends Component {
                 </h4>
                 <p>{question}</p>
               </div>
-              <div className="col-lg-6 col-md-5" >
+              <div className="col-lg-6 col-md-5">
                 <Answers
                   id={id}
                   answers={answers}
@@ -209,7 +218,7 @@ class Main extends Component {
             </div>
             <div className="col-lg-12 col-md-12" id="submit">
               {true ? (
-                <div className="row" style={{justifyContent: 'center'}}>
+                <div className="row" style={{ justifyContent: "center" }}>
                   {count != 1 ? (
                     <button
                       style={{ marginRight: 20 }}
