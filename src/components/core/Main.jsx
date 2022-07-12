@@ -191,7 +191,7 @@ class Main extends Component {
                 </h4>
                 <p>{question}</p>
               </div>
-              <div className="col-lg-6 col-md-5">
+              <div className="col-lg-6 col-md-5" >
                 <Answers
                   id={id}
                   answers={answers}
@@ -207,9 +207,9 @@ class Main extends Component {
                 />
               </div>
             </div>
-            <div id="submit">
+            <div className="col-lg-12 col-md-12" id="submit">
               {true ? (
-                <div className="row">
+                <div className="row" style={{justifyContent: 'center'}}>
                   {count != 1 ? (
                     <button
                       style={{ marginRight: 20 }}

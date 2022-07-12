@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 
-let storearr1=[];
-let classArr=["", "", "", ""];
+let storearr1 = [];
+let classArr = ["", "", "", ""];
 class Answers extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAnswered: false,
       classNames: ["", "", "", ""],
-      textArea:'',
+      textArea: "",
     };
     // console.log("optionsss", props.optionState);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.clearClasses = this.clearClasses.bind(this);
-    this.onChangeTextArea=this.onChangeTextArea.bind(this);
+    this.onChangeTextArea = this.onChangeTextArea.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,21 +30,24 @@ class Answers extends Component {
         this.state.classNames[1] = "";
         this.state.classNames[2] = "";
         this.state.classNames[3] = "";
-      
-        if(stateUpdate[this.props.count].optionType =='word' || stateUpdate[this.props.count].optionType =='image'){
-          this.state.classNames[stateUpdate[this.props.count].answer - 1] =
-          "selectedOptions";
-        }else if(stateUpdate[this.props.count].optionType =='Open Ended Questionnaires'){
 
-        }else{
-          for(let x of stateUpdate[this.props.count].answer){
-            console.log("answer",x,this.props.count);
-            this.state.classNames[x - 1] =
-          "selectedOptions";
+        if (
+          stateUpdate[this.props.count].optionType == "word" ||
+          stateUpdate[this.props.count].optionType == "image"
+        ) {
+          this.state.classNames[stateUpdate[this.props.count].answer - 1] =
+            "selectedOptions";
+        } else if (
+          stateUpdate[this.props.count].optionType ==
+          "Open Ended Questionnaires"
+        ) {
+        } else {
+          for (let x of stateUpdate[this.props.count].answer) {
+            console.log("answer", x, this.props.count);
+            this.state.classNames[x - 1] = "selectedOptions";
           }
         }
 
-        
         this.setState({
           classNames: this.state.classNames,
         });
@@ -60,50 +63,46 @@ class Answers extends Component {
 
     let elem = e.currentTarget;
     let { correct, increaseScore } = this.props;
-    var storeArr=this.state.classNames;
-    var storearr1=storage[id].answer.length!=0?storage[id].answer:[];
+    var storeArr = this.state.classNames;
+    var storearr1 = storage[id].answer.length != 0 ? storage[id].answer : [];
     // var count = 0;
     let answer = Number(elem.dataset.id);
     let updatedClassNames =
       answerType == "single" ? ["", "", "", ""] : this.state.classNames;
     if (optionType == "Multiple Choice Questionnaires") {
       storearr1.push(answer);
-         storage[id].answer=storearr1;
-         localStorage.setItem("Quiz", JSON.stringify(storage));
-      
+      storage[id].answer = storearr1;
+      localStorage.setItem("Quiz", JSON.stringify(storage));
     } else {
       storage[id].answer = answer;
       localStorage.setItem("Quiz", JSON.stringify(storage));
     }
-   
-  
+
     updatedClassNames[answer - 1] = "selectedOptions";
-   
+
     this.setState({
       classNames: updatedClassNames,
     });
 
     this.props.showButton();
-   
   }
   clearClasses() {
     this.setState({
       classNames: ["", "", "", ""],
     });
   }
-  onChangeTextArea(e){
-
+  onChangeTextArea(e) {
     this.setState({
-      textArea:e.target.value
+      textArea: e.target.value,
     });
-    var Storage= JSON.parse(localStorage.getItem('Quiz'));
-    Storage[this.props.id].answer=e.target.value;
-    localStorage.setItem('Quiz',JSON.stringify(Storage));
+    var Storage = JSON.parse(localStorage.getItem("Quiz"));
+    Storage[this.props.id].answer = e.target.value;
+    localStorage.setItem("Quiz", JSON.stringify(Storage));
   }
   render() {
     let { answers, optionType, id, optionState } = this.props;
-    let { classNames,textArea } = this.state;
-    var count=0;
+    let { classNames, textArea } = this.state;
+    var count = 0;
     let transition = {
       transitionName: "example",
       transitionEnterTimeout: 500,
@@ -119,14 +118,14 @@ class Answers extends Component {
     //     }else{
     //       // storearr1[i]='';
     //     }
-       
+
     //   }
     //   console.log("storearr1", renderStorage[id]);
     //   renderStorage[id].answer=storearr1;
     //   localStorage.setItem("Quiz", JSON.stringify(renderStorage));
 
     // }
-  
+
     return (
       <div id="answers">
         {optionType == "word" ? (
@@ -171,42 +170,62 @@ class Answers extends Component {
 
         {optionType == "image" ? (
           <ul id="imageContainer">
-            <li
-              onClick={this.checkAnswer}
-              className={classNames[0]}
-              data-id="1"
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space",
+                width: "100%",
+              }}
             >
-              <span>A</span>
+              <li
+                onClick={this.checkAnswer}
+                className={classNames[0]}
+                data-id="1"
+                style={{ marginRight: 10 }}
+              >
+                <span>A</span>
 
-              <img width="50" height="50" src={answers[0]} alt="image" />
-            </li>
+                <img width="100" height="150" src={answers[0]} alt="image" />
+              </li>
 
-            <li
-              onClick={this.checkAnswer}
-              className={classNames[1]}
-              data-id="2"
+              <li
+                onClick={this.checkAnswer}
+                className={classNames[1]}
+                data-id="2"
+                // style={{width:'40%'}}
+              >
+                <span>B</span>
+                <img width="100" height="150" src={answers[1]} alt="image" />
+              </li>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space",
+                width: "100%",
+              }}
             >
-              <span>B</span>
-              <img width="50" height="50" src={answers[1]} alt="image" />
-            </li>
+              <li
+                onClick={this.checkAnswer}
+                className={classNames[2]}
+                data-id="3"
+                style={{ marginRight: 10 }}
+              >
+                <span>C</span>
+                <img width="100" height="150" src={answers[2]} alt="image" />
+              </li>
 
-            <li
-              onClick={this.checkAnswer}
-              className={classNames[2]}
-              data-id="3"
-            >
-              <span>C</span>
-              <img width="50" height="50" src={answers[2]} alt="image" />
-            </li>
-
-            <li
-              onClick={this.checkAnswer}
-              className={classNames[3]}
-              data-id="4"
-            >
-              <span>D</span>
-              <img width="50" height="50" src={answers[3]} alt="image" />
-            </li>
+              <li
+                onClick={this.checkAnswer}
+                className={classNames[3]}
+                data-id="4"
+              >
+                <span>D</span>
+                <img width="100" height="150" src={answers[3]} alt="image" />
+              </li>
+            </div>
           </ul>
         ) : null}
         {optionType == "Open Ended Questionnaires" ? (
