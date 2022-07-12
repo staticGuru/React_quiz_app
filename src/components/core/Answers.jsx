@@ -20,10 +20,19 @@ class Answers extends Component {
     if (prevProps.count !== this.props.count) {
       console.log("something prop has changed.");
       let stateUpdate = JSON.parse(localStorage.getItem("Quiz"));
+      console.log("proppingcount",this.props.count);
       if (stateUpdate[this.props.count].answer == "") {
         this.setState({
           classNames: ["", "", "", ""],
         });
+        if (
+          stateUpdate[this.props.count].optionType ==
+          "Open Ended Questionnaires"
+        ) {
+          this.setState({textArea:stateUpdate[this.props.count].answer});
+          console.log("callllellelellr",this.state.textArea);
+
+        }
       } else {
         // console.log("valueoftheanswer", stateUpdate[this.props.count].answer);
         this.state.classNames[0] = "";
@@ -41,6 +50,9 @@ class Answers extends Component {
           stateUpdate[this.props.count].optionType ==
           "Open Ended Questionnaires"
         ) {
+          this.setState({textArea:stateUpdate[this.props.count].answer});
+          console.log("callllellelellr",this.state.textArea);
+
         } else {
           for (let x of stateUpdate[this.props.count].answer) {
             console.log("answer", x, this.props.count);

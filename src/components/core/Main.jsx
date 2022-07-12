@@ -1,16 +1,19 @@
 import { ContactSupportOutlined } from "@material-ui/icons";
 import React, { Component } from "react";
-import data from "../questions_data/data";
+import datas from "../questions_data/data";
 import Answers from "./Answers.jsx";
 import Popup from "./Popup.jsx";
 let scoreValue = 0;
+let data = [];
+let useVariable = 0;
+
 class Main extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       count: 0,
-      total: data.length,
+      useCaseCount: useVariable,
+      total: datas[useVariable].length,
       showButton: false,
       questionAnswered: false,
       score: 0,
@@ -27,6 +30,7 @@ class Main extends Component {
   componentWillMount() {
     let { count } = this.state;
     let QuizData = {};
+    data = datas[useVariable];
     for (let i = 0; i < data.length; i++) {
       if (data[i].optionType == "Multiple Choice Questionnaires") {
         QuizData[data[i].id] = {
@@ -42,11 +46,42 @@ class Main extends Component {
         };
       }
     }
-
+    console.log({ QuizData });
     localStorage.setItem("Quiz", JSON.stringify(QuizData));
     this.insertData(count);
   }
-
+  componentDidUpdate(prevProps, prevState) {
+    console.log("prevState", prevState, this.state.useCaseCount);
+    if (prevState.useCaseCount !== this.state.useCaseCount) {
+      data = datas[useVariable];
+       
+      this.setState({ count: 0 }, () => {
+       let QuizData = {};
+        data = datas[useVariable];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].optionType == "Multiple Choice Questionnaires") {
+            QuizData[data[i].id] = {
+              correct: data[i].correct,
+              answer: [],
+              optionType: data[i].optionType,
+            };
+          } else {
+            QuizData[data[i].id] = {
+              correct: data[i].correct,
+              answer: "",
+              optionType: data[i].optionType,
+            };
+          }
+        }
+        console.log({ QuizData });
+        localStorage.setItem("Quiz", JSON.stringify(QuizData));
+        this.insertData(0);
+      });
+    }
+  }
+  componentDidmount() {
+    console.log("didmount calledd");
+  }
   insertData(count, type) {
     let localStore = JSON.parse(localStorage.getItem("Quiz"));
     let optionStateArr = ["", "", "", ""];
@@ -54,10 +89,16 @@ class Main extends Component {
       localStore[
         type === "previous" ? this.state.count - 1 : this.state.count + 1
       ];
-
-    if (selectedLocalStore.answer != "") {
-      optionStateArr[selectedLocalStore.answer - 1] = "selectedOptions";
-    } else {
+    console.log({ selectedLocalStore });
+    console.warn(
+      localStore,
+      type === "previous" ? this.state.count - 1 : this.state.count + 1
+    );
+    // if (selectedLocalStore.answer != "") {
+    //   optionStateArr[selectedLocalStore.answer - 1] = "selectedOptions";
+    // }
+    // else
+    {
       optionStateArr = ["", "", "", ""];
     }
     var countPre = type == "previous" ? count - 1 : count;
@@ -185,10 +226,14 @@ class Main extends Component {
         />
         <select
           value={this.state.value}
-          onChange={(e) => console.log(e.target.value)}
+          onChange={(e) => {
+            console.log(e.target.value);
+            useVariable = e.target.value - 1;
+            this.setState({ useCaseCount: e.target.value - 1 });
+          }}
         >
           {Array.from({ length: 17 }, (_, i) => i + 1).map((e, key) => {
-            return <option key={key} value={`useCase_${e}`}>{`useCase_${e}`}</option>;
+            return <option key={key} value={e}>{`useCase_${e}`}</option>;
           })}
         </select>
         <div className="column">
@@ -201,7 +246,7 @@ class Main extends Component {
                 <p>{question}</p>
               </div>
               <div className="col-lg-6 col-md-5">
-                <Answers
+                {count !==0 && <Answers
                   id={id}
                   answers={answers}
                   correct={correct}
@@ -213,7 +258,7 @@ class Main extends Component {
                   showButton={this.handleShowButton}
                   isAnswered={questionAnswered}
                   increaseScore={this.handleIncreaseScore}
-                />
+                />}
               </div>
             </div>
             <div className="col-lg-12 col-md-12" id="submit">
