@@ -224,6 +224,9 @@ class Main extends Component {
           total={total}
           startQuiz={this.handleStartQuiz}
         />
+        <div className="row col-lg-12">
+        <div className="col-lg-7"/>
+
         <select
           value={this.state.value}
           onChange={(e) => {
@@ -231,11 +234,14 @@ class Main extends Component {
             useVariable = e.target.value - 1;
             this.setState({ useCaseCount: e.target.value - 1 });
           }}
+          className="col-lg-5 mt-5 pt-2 pb-2"
+          id="useCaseSelection"
         >
           {Array.from({ length: 17 }, (_, i) => i + 1).map((e, key) => {
             return <option key={key} value={e}>{`useCase_${e}`}</option>;
           })}
         </select>
+        </div>
         <div className="column">
           <div className="row">
             <div className="d-flex col-lg-12 col-md-10">
