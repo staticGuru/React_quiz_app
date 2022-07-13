@@ -51,7 +51,7 @@ class Main extends Component {
     this.insertData(count);
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("prevState", prevState, this.state.useCaseCount);
+    console.log("prevState", prevState, this.state.useCaseCount,useVariable);
     if (prevState.useCaseCount !== this.state.useCaseCount) {
       data = datas[useVariable];
        
@@ -230,9 +230,9 @@ class Main extends Component {
         <select
           value={this.state.value}
           onChange={(e) => {
-            console.log(e.target.value);
+            console.log("fdsfd",e.target.value,Array.from({ length: 17 }, (_, i) => i + 1));
             useVariable = e.target.value - 1;
-            this.setState({ useCaseCount: e.target.value - 1 });
+            this.setState({ useCaseCount: e.target.value - 1,total:datas[useVariable].length });
           }}
           className="col-lg-5 mt-5 pt-2 pb-2"
           id="useCaseSelection"
