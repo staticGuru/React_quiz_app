@@ -1,18 +1,19 @@
-#  React Quiz App 💎
+# React Quiz App 💎
 
-A Simple React Quiz App which contains the 7 MCQ’s which have 4 options in each.
-
-## See it Live [HERE](https://react-quiz-jatin8898.netlify.com/) 
+A Simple React Quiz App which contains MCQ’s which have 4 options in each.
 
 ### Version
+
 1.0.0
 
 ## 📝 Usage
 
 ### Clone this Repo
+
 ```
-git clone https://github.com/Jatin-8898/react-quiz-app.git
+git clone https://github.com/staticGuru/React_quiz_app.git
 ```
+
 ### Installation
 
 ```sh
@@ -26,4 +27,3 @@ Then go to http://localhost:8000
 ```sh
 $ npm start
 ```
-
